@@ -89,13 +89,11 @@ export default function RegisterStoreScreen({navigation}) {
         await axios
             .post(url, storeData)
             .then(response => {
-                console.log(response.data)
                 const { email, _id } = response.data;
                 navigation.navigate('OtpScreen', {
                  user_email: email,
                  user_id: _id
                 });
-                console.log(response.message)
             })
             .catch(err => {
                 setError(err.response.data.error);
@@ -104,17 +102,23 @@ export default function RegisterStoreScreen({navigation}) {
 
     const getCurrentLocation = async() => {
         const { status } =  await Location.requestForegroundPermissionsAsync();
-        if( status !== 'granted') {
-            console.log('Location not granted');
+        try {
+            if( status !== 'granted') {
+                console.log('Location not granted');
+                return
+            }
+            else {
+                 const myLocation = await Location.getCurrentPositionAsync();
+                const jsonLocation = JSON.stringify(myLocation);
+                const jsonParsed = JSON.parse(jsonLocation);
+                console.log(jsonParsed);
+                setCurrentLat(jsonParsed.coords.latitude)
+                setCurrentLong(jsonParsed.coords.longitude)
+             } 
+            
+        } catch (error) {
+            console.log('There was an error on finding current Location!')
         }
-        else {
-             const myLocation = await Location.getCurrentPositionAsync();
-            const jsonLocation = JSON.stringify(myLocation);
-            const jsonParsed = JSON.parse(jsonLocation);
-
-            setCurrentLat(jsonParsed.coords.latitude)
-            setCurrentLong(jsonParsed.coords.longitude)
-         } 
         }
 
         
@@ -128,14 +132,11 @@ export default function RegisterStoreScreen({navigation}) {
         ]
         );
     }
-    
-    useEffect(() => {
-        getCurrentLocation();
-    },[]);
 
     useEffect(() => {
+        getCurrentLocation();
         reminderForUser();
-    },[])
+    },[]);
 
     return (
         <KeyboardWrapper>
@@ -144,7 +145,6 @@ export default function RegisterStoreScreen({navigation}) {
                 <Text style={styles.personalText}>Owner Information:</Text>
                 <View style={styles.line}></View>
                 {/* Form container */}
-                {/* <Text>lat: {lat} long: {long} </Text> */}
                 <View style={styles.form}>
                     {/* Formik form */}
                     <Formik
@@ -167,11 +167,12 @@ export default function RegisterStoreScreen({navigation}) {
                         }}
                         validationSchema={RegisterSchema}
                         onSubmit={(values, actions) => {
+                            handleRegisterStore(values);
+                            setError(null);
                            setTimeout(() => {
-                               handleRegisterStore(values);
                                actions.setSubmitting(false);
                                actions.resetForm();
-                           }, 1000);
+                           }, 3000);
                         }}
                     >
                     {(props)=> {

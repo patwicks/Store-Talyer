@@ -1,20 +1,31 @@
-import React from 'react'
 import { StyleSheet, Platform, StatusBar } from 'react-native'
 
 import Color from '../config/Color'
 
 const Styles = StyleSheet.create({
+    // containers
     mainContainer: {
         flex: 1,
         backgroundColor: Color.white
     },
+    //Top profile main container
     topProfile: {
-        flex: 1,
+        height: 350,
         paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 30,
         justifyContent: 'center',
         alignItems: 'center',
         overflow: 'hidden',
         position: 'relative',
+        paddingHorizontal: 5,
+    },
+    // Details container
+    detailsContainer: {
+        flex: 1,
+        paddingVertical: 5,
+    },
+    infoContainer: {
+        padding: 5,
+        flex: 1
     },
     coverPhoto: {
         width: '100%',
@@ -29,13 +40,12 @@ const Styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
         padding: 5,
-        // backgroundColor: Color.level4,
         backgroundColor: 'rgba(0,0,0,0.5)',
         borderColor: Color.level2,
         borderWidth: 1,
         position: 'absolute',
         bottom: 4,
-        right: 5,
+        right: 10,
         zIndex: 999,
     },
     circleContainer: {
@@ -116,14 +126,12 @@ const Styles = StyleSheet.create({
     infoHeadTextContainer: {
         padding: 10,
         marginTop: 5,
-        backgroundColor: Color.secondary,
+        backgroundColor: '#4da6ff',
         alignItems: 'center'
     },
-    detailsContainer: {
-        height: '100%',
-        paddingVertical: 5,
-    },
+
     nameContainer: {
+        flex: 2,
         padding: 20,
         backgroundColor: Color.level4,
         flexDirection: 'row',
@@ -149,17 +157,16 @@ const Styles = StyleSheet.create({
         alignSelf: 'center',
         marginVertical: 20
     },
-
-    infoContainer: {
-        flex: 2,
-        padding: 5,
-    },
     mapContainer: {
-        height: 200
+        width: '100%',
+        height: 250,
+        marginBottom: 5,
+        borderRadius: 10,
+        overflow: 'hidden'
     },
     mapStore: {
         height: '100%',
-        width: '100%'
+        width: '100%',
     }
 })
 

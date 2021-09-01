@@ -8,13 +8,14 @@ import {
     Platform, 
     TextInput, 
     TouchableOpacity,
-    ActivityIndicator
+    ActivityIndicator,
 } from 'react-native'
 import { Formik } from 'formik'
 import * as yup from 'yup';
 import axios from 'axios'
 
 import Color from '../components/config/Color';
+import HandleBackAction from '../utils/HandleBackAction';
 
 const OtpSchema = yup.object({
     otpUsed: 
@@ -71,6 +72,7 @@ export default function OtpScreen({navigation, route}) {
 
         if(!unmounted) {
             handleTimer();
+            HandleBackAction();
         }
     return (() => {
         unmounted

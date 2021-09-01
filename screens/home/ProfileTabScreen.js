@@ -172,6 +172,7 @@ export default function StoreProfileScreen({navigation}) {
                 setCoverUrl(response.data.coverPhotoURL);
                 setStoreName(response.data.storeName);
                 setStoreAddress(response.data.storeAddress);
+                
                 setIsLoading(false);
             })
             .catch(error => {

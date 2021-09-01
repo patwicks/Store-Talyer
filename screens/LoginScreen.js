@@ -86,11 +86,11 @@ export default function LoginScreen({navigation}) {
                     initialValues={{email: '', password: ''}}
                     validationSchema={LoginSchema}
                     onSubmit={(values, actions) => {
+                        handleLogin(values);
+                        setError(null);
                         setTimeout(()=> {
-                            handleLogin(values);
                             actions.setSubmitting(false);
                             actions.resetForm();
-                            setError(null);
                         }, 3000)
                     }
                     }
