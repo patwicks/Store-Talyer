@@ -27,6 +27,15 @@ const Styles = StyleSheet.create({
         padding: 5,
         flex: 1
     },
+    // Details container
+    detailsContainer: {
+        flex: 1,
+        paddingVertical: 5,
+    },
+    infoContainer: {
+        padding: 5,
+        flex: 1
+    },
     coverPhoto: {
         width: '100%',
         height: '100%',

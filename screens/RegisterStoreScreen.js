@@ -121,7 +121,6 @@ export default function RegisterStoreScreen({navigation}) {
         }
         }
 
-        
 
     const reminderForUser = () => {
         Alert.alert(
