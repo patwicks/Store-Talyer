@@ -26,7 +26,6 @@ export default function OtpScreen({navigation, route}) {
     const [error, setError] = useState();
     const [seconds, setSeconds] = useState(180);
     const [disabled, setDisabled] = useState(true);
-    const [unmounted, setUnmounted] = useState(false);
     // Params from forms
     const {user_email, user_id} = route.params;
 
@@ -57,7 +56,8 @@ export default function OtpScreen({navigation, route}) {
     }
  
     // UseEffect for timer
-    useEffect(() => {
+    useEffect(() => {  
+        let unmounted = false;
            // handle the OTP button Resend
         const handleTimer = () => {
             if (seconds > 0) {
@@ -65,15 +65,15 @@ export default function OtpScreen({navigation, route}) {
             } else {
                 setSeconds(0);
                 setDisabled(false)
-                setUnmounted(true);
+                unmounted = true;
             }
         }
-
+    // if mounted is true then execute
         if(!unmounted) {
-            handleTimer();
+            handleTimer();  
         }
     return (() => {
-        unmounted
+        unmounted = true;
     })
     }, [seconds])
     

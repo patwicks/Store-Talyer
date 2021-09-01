@@ -89,13 +89,11 @@ export default function RegisterStoreScreen({navigation}) {
         await axios
             .post(url, storeData)
             .then(response => {
-                console.log(response.data)
                 const { email, _id } = response.data;
                 navigation.navigate('OtpScreen', {
                  user_email: email,
                  user_id: _id
                 });
-                console.log(response.message)
             })
             .catch(err => {
                 setError(err.response.data.error);
@@ -103,18 +101,22 @@ export default function RegisterStoreScreen({navigation}) {
     }
 
     const getCurrentLocation = async() => {
-        const { status } =  await Location.requestForegroundPermissionsAsync();
-        if( status !== 'granted') {
-            console.log('Location not granted');
-        }
-        else {
-             const myLocation = await Location.getCurrentPositionAsync();
-            const jsonLocation = JSON.stringify(myLocation);
-            const jsonParsed = JSON.parse(jsonLocation);
-
-            setCurrentLat(jsonParsed.coords.latitude)
-            setCurrentLong(jsonParsed.coords.longitude)
-         } 
+            try {
+                const { status } =  await Location.requestForegroundPermissionsAsync();
+                if( status !== 'granted') {
+                    console.log('Location not granted');
+                }
+                else {
+                     const myLocation = await Location.getCurrentPositionAsync();
+                    const jsonLocation = JSON.stringify(myLocation);
+                    const jsonParsed = JSON.parse(jsonLocation);
+        
+                    setCurrentLat(jsonParsed.coords.latitude)
+                    setCurrentLong(jsonParsed.coords.longitude)
+                 } 
+            } catch (error) {
+                console.log('There was an error from detecting Location!')
+            }
         }
 
         
