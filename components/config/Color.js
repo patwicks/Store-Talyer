@@ -9,5 +9,5 @@ export default {
     level3: '#a6a6a6',
     level4: '#f2f2f2',
     // other
-    error: '#ff0000',
+    error: '#ff0000'
 }
